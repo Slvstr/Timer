@@ -1,0 +1,21 @@
+/* Custom animation mixins. */
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin animation($anim) {
+  -webkit-animation: $anim;
+  animation: $anim;
+}
+
+/* Fade in trip results. */
+@include keyframes(fade-in) {
+  from {
+    opacity: 0;
+  }
+}

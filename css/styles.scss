@@ -1,0 +1,18 @@
+/* Compass imports. */
+@import "compass";
+
+/* Flexbox mixin, for iOS7 Mobile Safari. */
+@mixin display_flex() {
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex($val) {
+  -webkit-flex: $val;
+  flex: $val;
+}
+
+/* Timer styles. */
+@import "reset";
+@import "animations";
+@import "timer";
