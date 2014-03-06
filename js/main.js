@@ -9,7 +9,7 @@ TimerApp.controller('MainCtrl', function($scope, $interval) {
   }
   $scope.toggleLabel = $scope.strings.Start;
 
-  $scope.TotalTime = 5;
+  $scope.TotalTime = 12;
   $scope.TimeRemaining = 0;
 
   var inter;
@@ -63,5 +63,18 @@ TimerApp.controller('MainCtrl', function($scope, $interval) {
 
   $scope.CompleteCycle = function() {
     // Play a sound.
+  };
+
+
+});
+
+// Applies Math.ceil and pads out with spaces.
+TimerApp.filter('formatSecs', function() {
+  return function(input) {
+    var capped = Math.ceil(input).toString();
+    if (capped.length < 2) {
+      capped = '0' + capped;
+    }
+    return capped;
   };
 });

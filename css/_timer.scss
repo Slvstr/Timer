@@ -1,4 +1,19 @@
 /* Timer styles. */
 
+$GUTTER: 20px;
+
 body {
+  background-color: #f5f5f5;
+  font: 300 16px 'Roboto', sans-serif;
+  padding: $GUTTER 0;
+}
+
+.time-display {
+  background-color: #fff;
+  box-shadow: 0 1px 2px #ccc;
+  display: flex;
+  font-weight: 100;
+  font-size: 48px;
+  justify-content: space-around;
+  padding: 10px 0;
 }

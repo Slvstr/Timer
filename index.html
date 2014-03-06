@@ -7,26 +7,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
     <link rel="stylesheet" href="css/compiled/styles.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,100">
   </head>
-<body ng-controller="MainCtrl">
+  <body ng-controller="MainCtrl">
 
-  <div>
-    Total seconds:
-    <input type="number" ng-model="TotalTime">
-  </div>
+    <section class="time-display">
+      <div>
+        <span class="minutes">
+          00
+        </span>
+        <span class="seconds">
+          {{TimeRemaining > 0 ? TimeRemaining : TotalTime | formatSecs}}
+        </span>
+      </div>
+    </section>
 
-  <div>
-    <button ng-click="ToggleTimer()" ng-bind="toggleLabel"></button>
-    <button ng-click="ResetTimer()" ng-bind="strings.Reset"></button>
-  </div>
+    <section class="controls">
+      <button ng-click="ToggleTimer()" ng-bind="toggleLabel"></button>
+      <button ng-click="ResetTimer()" ng-bind="strings.Reset"></button>
+    </section>
 
-  <div>
-    {{TimeRemaining}} seconds
-  </div>
 
-  <script src="js/bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="js/bower_components/underscore/underscore.js"></script>
-  <script src="js/bower_components/angular/angular.min.js"></script>
-  <script src="js/main.js"></script>
-</body>
+
+    <script src="js/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="js/bower_components/underscore/underscore.js"></script>
+    <script src="js/bower_components/angular/angular.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
 </html>
