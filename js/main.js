@@ -1,29 +1,67 @@
 var TimerApp = angular.module('Timer', []);
-
 TimerApp.controller('MainCtrl', function($scope, $interval) {
+
+  // Strings used in UI.
+  $scope.strings = {
+    Start: 'Start',
+    Pause: 'Pause',
+    Reset: 'Reset'
+  }
+  $scope.toggleLabel = $scope.strings.Start;
 
   $scope.TotalTime = 5;
   $scope.TimeRemaining = 0;
 
-  var timer;
+  var inter;
 
   // Creates global timer and kicks it off.
-  $scope.StartTimer = function(e) {
+  $scope.ToggleTimer = function() {
+    // Timer is already running - pause it.
+    if (!!inter) {
+      $scope.PauseTimer();
+
+    // Starts a new timer.
+    } else if ($scope.TimeRemaining > 0) {
+      $scope.ResumeTimer();
+    } else {
+      $scope.StartNewTimer();
+    }
+  };
+
+  $scope.StartNewTimer = function() {
     $scope.TimeRemaining = $scope.TotalTime;
-
-    timer = $interval(function() {
-      if ($scope.TimeRemaining <= 0) {
-        $scope.StopTimer();
-
-      } else {
-        $scope.TimeRemaining = $scope.TimeRemaining - 1;
-      }
-    }, 1000);
+    $scope.ResumeTimer();
   };
 
-  // Kills timer.
-  $scope.StopTimer = function() {
-    $interval.cancel(timer);
+  $scope.ResumeTimer = function() {
+    $scope.toggleLabel = $scope.strings.Pause;
+    inter = $interval($scope.tick, 100);
   };
 
+  // Kills internal timer object.
+  $scope.PauseTimer = function() {
+    $scope.toggleLabel = $scope.strings.Start;
+    $interval.cancel(inter);
+    inter = undefined;
+  };
+
+  $scope.ResetTimer = function() {
+    $scope.PauseTimer();
+    $scope.TimeRemaining = 0;
+  };
+
+  $scope.tick = function() {
+    if ($scope.TimeRemaining <= 0) {
+      $scope.CompleteCycle();
+      $scope.ResetTimer();
+      $scope.StartNewTimer();
+
+    } else {
+      $scope.TimeRemaining = Math.round(($scope.TimeRemaining - .1) * 10) / 10;
+    }
+  };
+
+  $scope.CompleteCycle = function() {
+    // Play a sound.
+  };
 });

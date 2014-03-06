@@ -16,16 +16,13 @@
   </div>
 
   <div>
-    <button ng-click="StartTimer()">Start</button>
+    <button ng-click="ToggleTimer()" ng-bind="toggleLabel"></button>
+    <button ng-click="ResetTimer()" ng-bind="strings.Reset"></button>
   </div>
 
   <div>
     {{TimeRemaining}} seconds
   </div>
-
-
-
-  <p>{{message}}</p>
 
   <script src="js/bower_components/jquery/dist/jquery.min.js"></script>
   <script src="js/bower_components/underscore/underscore.js"></script>
