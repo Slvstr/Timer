@@ -13,18 +13,34 @@
 
     <section class="time-display">
       <div>
-        <span class="minutes">
-          00
+        <span ng-show="TimeRemaining <= 0 && TotalTime() >=60" class="seconds">
+          {{TotalTime()*1000 | date:'m:ss'}}
         </span>
-        <span class="seconds">
-          {{TimeRemaining > 0 ? TimeRemaining : TotalTime | formatSecs}}
+        <span ng-show="TimeRemaining <= 0 && TotalTime() < 60" class="seconds">
+          {{TotalTime()*1000 | date:'ss'}}
         </span>
+
+        <span ng-show="TimeRemaining >= 60" class="seconds">
+          {{TimeRemaining*1000 | date:'m:ss'}}
+        </span>
+        <span ng-show="TimeRemaining < 60 && TimeRemaining > 0" class="seconds">
+          {{TimeRemaining*1000 | date:'ss'}}
+        </span>
+
       </div>
     </section>
 
     <section class="controls">
-      <button ng-click="ToggleTimer()" ng-bind="toggleLabel"></button>
-      <button ng-click="ResetTimer()" ng-bind="strings.Reset"></button>
+      <div class="play-pause">
+        <button ng-click="ToggleTimer()" ng-bind="toggleLabel"></button>
+        <button ng-click="ResetTimer()" ng-bind="strings.Reset"></button>
+      </div>
+      <div class="time-input">
+        <label for="minutes">Minutes</label>
+        <input type="number" id="min" ng-model="totalMinutes"/>
+        <label for="sec">Seconds</label>
+        <input type="number" id="sec" ng-model="totalSeconds">
+      </div>
     </section>
 
 

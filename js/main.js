@@ -6,10 +6,14 @@ TimerApp.controller('MainCtrl', function($scope, $interval) {
     Start: 'Start',
     Pause: 'Pause',
     Reset: 'Reset'
-  }
+  };
   $scope.toggleLabel = $scope.strings.Start;
 
-  $scope.TotalTime = 12;
+  $scope.totalMinutes = $scope.totalMinutes || 0;
+  $scope.totalSeconds = $scope.totalSeconds || 0;
+  $scope.TotalTime = function() {
+    return (($scope.totalMinutes * 60 + $scope.totalSeconds) || 30);
+  };
   $scope.TimeRemaining = 0;
 
   var inter;
@@ -29,7 +33,7 @@ TimerApp.controller('MainCtrl', function($scope, $interval) {
   };
 
   $scope.StartNewTimer = function() {
-    $scope.TimeRemaining = $scope.TotalTime;
+    $scope.TimeRemaining = $scope.TotalTime();
     $scope.ResumeTimer();
   };
 
@@ -69,12 +73,15 @@ TimerApp.controller('MainCtrl', function($scope, $interval) {
 });
 
 // Applies Math.ceil and pads out with spaces.
-TimerApp.filter('formatSecs', function() {
-  return function(input) {
-    var capped = Math.ceil(input).toString();
-    if (capped.length < 2) {
-      capped = '0' + capped;
-    }
-    return capped;
-  };
-});
+// TimerApp.filter('formatSecs', [ $filter, function($filter) {
+//   var dateFilter =  $filter('date');
+//   return function(seconds) {
+//     var msecs = seconds * 1000;
+//     if (seconds >= 60) {
+//       return dateFilter(msecs, 'm:ss');
+//     }
+//     else {
+//       return dateFilter(msecs, 'ss');
+//     }
+//   };
+// }]);
